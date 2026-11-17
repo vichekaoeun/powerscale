@@ -21,22 +21,10 @@ service.
 
 ## Architecture
 
-```text
-Browser
-  │
-  ▼
-Nginx (frontend :3000)
-  │  /api
-  ▼
-API Gateway (:8080)
-  ├── Voting Service (:8081) ── PostgreSQL (powerscale)
-  │        │
-  │        └── outbox ── Kafka ── Ranking Service (:8082) ── PostgreSQL (powerscale_ranking)
-  │                                      │
-  │                                      └── Redis (leaderboard cache)
-  │
-  └── uploaded images served by the Voting Service from a Docker volume
-```
+![Powerscale architecture](./powerscale-architecture.png)
+
+The diagram shows synchronous HTTP and database calls as solid arrows, and the
+asynchronous outbox-to-Kafka-to-Ranking-Service flow as dashed arrows.
 
 | Service | Port | Responsibility |
 |---|---|---|
@@ -124,6 +112,7 @@ All vote endpoints require `X-User-Id`.
 │   ├── api-gateway/
 │   ├── ranking-service/
 │   └── voting-service/
+├── powerscale-architecture.png # architecture diagram
 ├── Makefile
 └── pom.xml
 ```
