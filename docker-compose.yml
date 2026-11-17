@@ -119,7 +119,7 @@ services:
       VOTE_TOPIC: vote-submitted
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      LEADERBOARD_CACHE_ENABLED: "true"
+      LEADERBOARD_CACHE_ENABLED: "${LEADERBOARD_CACHE_ENABLED:-true}"
     ports:
       - "8082:8082"
     depends_on:
